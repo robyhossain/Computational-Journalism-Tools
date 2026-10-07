@@ -1,0 +1,173 @@
+<!-- popup.html -->
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master OSINT & Copier Tool</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; margin: 0; padding: 15px; min-width: 650px; }
+        .search-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box; }
+        
+        /* Master Toggle Switch Styling */
+        .toggle-header { display: flex; justify-content: space-between; align-items: center; background: #e8f0fe; padding: 10px 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #d2e3fc; }
+        .toggle-text { font-size: 14px; font-weight: bold; color: #1a73e8; }
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #4CAF50; }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        h2 { text-align: center; color: #1a73e8; margin: 0 0 5px 0; font-size: 20px; }
+        p.subtitle { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; margin-top: 0; }
+        
+        .input-section { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eef0f2; }
+        label { font-size: 13px; font-weight: bold; color: #555; display: block; margin-bottom: 6px; }
+        input[type="text"], select { width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 14px; outline: none; transition: 0.3s; }
+        input[type="text"]:focus, select:focus { border-color: #1a73e8; box-shadow: 0 0 5px rgba(26,115,232,0.2); }
+
+        .section-title { font-size: 13px; text-transform: uppercase; color: #1a73e8; margin: 15px 0 10px 0; font-weight: bold; border-bottom: 2px solid #1a73e8; display: inline-block; padding-bottom: 2px; }
+        
+        .batch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 8px; margin-bottom: 15px; }
+        .batch-btn { background-color: #ffffff; color: #3c4043; border: 1px solid #dadce0; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; transition: 0.2s; }
+        .batch-btn:hover { background-color: #f1f3f4; border-color: #1a73e8; color: #1a73e8; }
+        .batch-btn.visited { color: #888; background-color: #f8f9fa; }
+
+        .tool-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+        .tool-btn { padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; font-size: 12px; text-align: center; transition: 0.2s; }
+        
+        .en-btn { background-color: #1a73e8; }
+        .fact-btn { background-color: #28a745; }
+        .pdf-btn { background-color: #6f42c1; }
+        .social-btn { background-color: #00acee; }
+        .video-btn { background-color: #ff0000; }
+        .bashundhara-btn { background-color: #8b0000; }
+        .osint-btn { background-color: #ff8c00; grid-column: span 4; font-size: 13px; padding: 12px; }
+
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+        .footer-brand { text-align: center; font-weight: bold; color: #333; margin-top: 20px; font-size: 12px; border-top: 1px solid #eee; padding-top: 10px; }
+        .info { font-size: 11px; color: #d92121; text-align: center; margin-top: 10px; font-weight: bold; }
+
+        /* Copier Specific Styles */
+        .copier-section { margin-top: 25px; padding-top: 15px; border-top: 2px dashed #ccc; display: flex; gap: 10px; align-items: center; justify-content: center; background: #f8f9fa; border-radius: 8px; padding: 15px; }
+        .copier-btn { padding: 10px 15px; border: none; border-radius: 6px; color: white; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.2s; flex: 1; text-align: center; }
+        #toggle-btn { background-color: #dc3545; }
+        #toggle-btn:hover { background-color: #c82333; }
+        #extract-btn { background-color: #17a2b8; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        #extract-btn:hover { background-color: #138496; }
+    </style>
+</head>
+<body>
+
+<div class="search-card">
+    <div class="toggle-header">
+        <span class="toggle-text">⚙️ Master Control: Context Menus & Facebook Tool</span>
+        <label class="switch">
+            <input type="checkbox" id="extToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <h2>The Dissent - Media Finder & Tools</h2>
+    <p class="subtitle">২৩০+ ভেরিফাইড নিউজ সোর্স ও OSINT ব্যাচ সার্চ টুল</p>
+    
+    <div class="input-section">
+        <label>অনুসন্ধানের বিষয় (Keyword):</label>
+        <input type="text" id="searchTerm" placeholder="উদা: দ্রব্যমূল্য বৃদ্ধি বা তিতুমীর কলেজ">
+        
+        <label>সময়সীমা (Time Range):</label>
+        <select id="dateRange">
+            <option value="">যেকোনো সময় (All Time)</option>
+            <option value="qdr:h">গত ১ ঘণ্টা</option>
+            <option value="qdr:d">গত ২৪ ঘণ্টা</option>
+            <option value="qdr:w">গত ১ সপ্তাহ</option>
+            <option value="qdr:m">গত ১ মাস</option>
+            <option value="qdr:y">গত ১ বছর</option>
+        </select>
+    </div>
+
+    <div class="section-title">নির্দিষ্ট সাইটে খুঁজুন (Specific Site Search)</div>
+    <div style="display:flex; gap:10px; margin-bottom:20px; background: #eef2f5; padding: 10px; border-radius: 8px;">
+        <select id="singleSiteSelect" style="flex: 1; margin-bottom: 0;">
+            <option value="">-- পোর্টাল নির্বাচন করুন --</option>
+            <optgroup label="বিশেষ গ্রুপ">
+                <option value="site:prothomalo.com OR site:thedailystar.net">প্রথম আলো + Daily Star</option>
+                <!-- নতুন দুটি পোর্টাল বসুন্ধরাতে যোগ করা হলো -->
+                <option value="site:kalerkantho.com OR site:bd-pratidin.com OR site:en.bd-pratidin.com OR site:daily-sun.com OR site:bangla.daily-sun.com OR site:banglanews24.com OR site:news24bd.tv">বসুন্ধরা গ্রুপের মিডিয়া</option>
+                <option value="site:rumorscanner.com OR site:dismislab.com OR site:factwatch.org OR site:boomlive.in/bd">ফ্যাক্টচেক সাইটসমূহ</option>
+            </optgroup>
+            <optgroup label="একক পোর্টাল">
+                <option value="site:prothomalo.com">প্রথম আলো</option>
+                <option value="site:thedailystar.net">Daily Star</option>
+                <option value="site:bangla.thedailystar.net">Daily Star বাংলা</option>
+                <option value="site:bangla.bdnews24.com">বাংলা বিডিনিউজ</option>
+                <option value="site:bdnews24.com">বিডিনিউজ</option>
+                <option value="site:banglanews24.com">Banglanews24</option>
+                <option value="site:news24bd.tv">News24</option>
+                <option value="site:anandabazar.com">আনন্দবাজার</option>
+                <option value="site:ittefaq.com.bd">ইত্তেফাক</option>
+                <option value="site:dailyinqilab.com">ইনকিলাব</option>
+                <option value="site:kalerkantho.com">কালের কণ্ঠ</option>
+                <option value="site:bbc.com/bengali">বিবিসি বাংলা</option>
+                <option value="site:dw.com/bengali">ডয়চে ভেলে</option>
+                <option value="site:kalbela.com">কালবেলা</option>
+                <option value="site:dailynayadiganta.com">নয়াদিগন্ত</option>
+                <option value="site:banglatribune.com">বাংলাট্রিবিউন</option>
+                <option value="site:bd-pratidin.com">বাংলাদেশ প্রতিদিন</option>
+                <option value="site:mzamin.com">মানবজমিন</option>
+                <option value="site:jugantor.com">যুগান্তর</option>
+                <option value="site:samakal.com">সমকাল</option>
+                <option value="site:risingbd.com">রাইজিংবিডি</option>
+                <option value="site:ajkerpatrika.com">আজকের পত্রিকা</option>
+                <option value="site:independent24.com">ইন্ডিপেনডেন্ট টিভি</option>
+                <option value="site:ekattor.tv">একাত্তর টিভি</option>
+                <option value="site:channelionline.com">চ্যানেল আই</option>
+                <option value="site:channel24bd.tv">চ্যানেল২৪</option>
+                <option value="site:jagonews24.com">জাগোনিউজ</option>
+                <option value="site:tbsnews.net">টিবিএস (TBS)</option>
+                <option value="site:dbcnews.tv">ডিবিসি নিউজ</option>
+                <option value="site:dhakatribune.com">ঢাকাট্রিবিউন</option>
+                <option value="site:dhakapost.com">ঢাকাপোস্ট</option>
+                <option value="site:jamuna.tv">যমুনা টিভি</option>
+                <option value="site:somoynews.tv">সময় টিভি</option>
+            </optgroup>
+        </select>
+        <button id="btn-single-site" class="tool-btn" style="background-color: #e91e63; padding: 10px 20px; white-space: nowrap;">🔍 নির্দিষ্ট সাইটে খুঁজুন</button>
+    </div>
+
+    <div class="section-title">নিউজ ব্যাচ সার্চ (বাংলা মিডিয়া)</div>
+    <div id="batchContainer" class="batch-grid"></div>
+
+    <div class="section-title">অন্যান্য গুরুত্বপূর্ণ ও সোশ্যাল সার্চ</div>
+    <div class="tool-grid">
+        <button id="btn-en" class="tool-btn en-btn">English News</button>
+        <button id="btn-fact" class="tool-btn fact-btn">ফ্যাক্ট চেক</button>
+        <button id="btn-pdf" class="tool-btn pdf-btn">গ্যাজেট/রিপোর্ট</button>
+        <button id="btn-bashundhara" class="tool-btn bashundhara-btn">বসুন্ধরা গ্রুপ</button>
+        <button id="btn-social" class="tool-btn social-btn">সোশ্যাল মিডিয়া</button>
+        <button id="btn-video" class="tool-btn video-btn">ইউটিউব নিউজ</button>
+        <button id="btn-osint" class="tool-btn osint-btn">Multi-Site OSINT (একসাথে ৪টি ট্যাবে)</button>
+    </div>
+
+    <div class="copier-section">
+        <div style="flex: 1; text-align: left; font-weight: bold; color: #555; font-size: 14px;">Smart Link Copier:</div>
+        <button id="toggle-btn" class="copier-btn">Disable on this site</button>
+        <button id="extract-btn" class="copier-btn">Extract Page / Search Links</button>
+    </div>
+
+    <div class="section-title" style="margin-top: 25px;">🚫 ব্লক করা সাইটসমূহ (Blocked Domains)</div>
+    <div id="blockedDomainsContainer" class="blocked-container">
+        <ul id="blockedList" style="list-style:none; padding:0; margin:0;"></ul>
+        <p id="noBlockedMsg" style="margin:0; font-size:12px; color:#777; text-align:center;">কোনো সাইট ব্লক করা নেই。</p>
+    </div>
+
+    <p class="info">নোট: একসাথে একাধিক ট্যাব ওপেন হওয়ার সময় ব্রাউজার যদি পপ-আপ ব্লক করে, তবে অ্যাড্রেস বারের কোণায় গিয়ে "Always allow" করে দিন।</p>
+    <div class="footer-brand">Master OSINT & Link Copier (v10.8)</div>
+</div>
+
+<script src="popup.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+// manifest.json
+{
+  "manifest_version": 3,
+  "name": "মাস্টার টুল: খবর ও ডেটা স্ক্র্যাপার (Master Data Scraper & OSINT)",
+  "version": "12.0",
+  "description": "এক ক্লিকে গুগল সার্চ অটো-স্ক্রল, CSV ডাউনলোড, ডুপ্লিকেট রিমুভ, নির্দিষ্ট শিটে সেভ এবং সোশ্যাল মিডিয়া স্ক্র্যাপিং করার স্বয়ংক্রিয় মাস্টার টুল।",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "storage",
+    "clipboardWrite",
+    "scripting",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://script.google.com/*",
+    "https://script.googleusercontent.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Open Master Tool",
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "exclude_matches": [
+        "*://start.me/*",
+        "*://chatgpt.com/*",
+        "*://gemini.google.com/*",
+        "*://claude.ai/*",
+        "*://poe.com/*"
+      ],
+      "js": ["content.js"],
+      "css": ["style.css"]
+    }
+  ]
+}
